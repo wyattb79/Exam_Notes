@@ -4,6 +4,33 @@
 
 * Services
 
+**Start and enable firewalld using service**
+
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: start and enable firewalld
+      service:
+        name: firewalld
+	state: started
+	enabled: yes
+```
+
+**Start and enable firewalld using systemd**
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: start and enable firewalld using systemd
+      systemd:
+        name: firewalld
+	state: started
+	enabled: yes
+```
+
 * Firewall rules
 
 * File systems
@@ -17,6 +44,7 @@
 **Directory archive**
 
 ```
+---
 - hosts: www.example.com
   tasks:
     - name: archive /home/users/wyatt
@@ -29,6 +57,7 @@
 **Multiple file archive**
 
 ```
+---
 - hosts: www.example.com
   tasks:
     - name: archive /home/users/wyatt/files/file[1,2,3,12]
@@ -45,6 +74,7 @@
 **Wildcard archive**
 
 ```
+---
 - hosts: www.example.com
   tasks:
     - name: archive /home/users/wyatt/files/file[1,2,4] but skip file3
@@ -58,6 +88,7 @@
 **Unarchive**
 
 ```
+---
 - hosts: www.example.com
   tasks:
     - name: unarchive /tmp/file124.tgz
@@ -76,6 +107,7 @@
 **Create groups**
 
 ```
+--- 
 - hosts: www.example.com
   tasks:
     - name: Create developers and sysadmins groups
@@ -90,6 +122,7 @@
 **Add user**
 
 ```
+---
 - hosts: www.example.com
   tasks:
     - name: Create user wyatt
@@ -106,6 +139,7 @@
 
 **Remove user**
 ```
+---
 - hosts: www.example.com
   tasks:
     - name: Remove user bob and their directories
