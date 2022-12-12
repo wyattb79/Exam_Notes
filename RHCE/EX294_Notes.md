@@ -14,7 +14,7 @@
 
 * Archiving
 
-** Directory archive **
+**Directory archive**
 
 ```
 - hosts: www.example.com
@@ -26,7 +26,7 @@
 	dest: /tmp/wyatt.tgz
 ```
 
-** Multiple file archive **
+**Multiple file archive**
 
 ```
 - hosts: www.example.com
@@ -42,7 +42,7 @@
 	dest: /tmp/files.bz2
 ```
 
-** Wildcard archive **
+**Wildcard archive**
 
 ```
 - hosts: www.example.com
@@ -55,7 +55,7 @@
       dest: /tmp/file124.tgz
 ```
 
-** Unarchive **
+**Unarchive**
 
 ```
 - hosts: www.example.com
