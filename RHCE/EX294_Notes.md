@@ -72,3 +72,45 @@
 * Security
 
 * Users and groups
+
+**Create groups**
+
+```
+- hosts: www.example.com
+  tasks:
+    - name: Create developers and sysadmins groups
+      group:
+        name: "{{ item }}"
+	state: present
+      loop:
+        - developers
+	- sysadmins
+```
+
+**Add user**
+
+```
+- hosts: www.example.com
+  tasks:
+    - name: Create user wyatt
+      user:
+        name: wyatt
+	comment: Wyatt developer account
+	shell: /bin/bash
+	groups: developers
+	append: yes
+	state: present
+	uid: 1050
+	append: yes
+```
+
+**Remove user**
+```
+- hosts: www.example.com
+  tasks:
+    - name: Remove user bob and their directories
+      user:
+        name: bob
+	state: absent
+	remove: yes  # get rid of all directories associated with this user
+```
