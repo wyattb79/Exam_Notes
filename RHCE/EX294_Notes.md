@@ -1,3 +1,97 @@
+# Understand core components of Ansible
+
+* Inventories
+
+Default location: /etc/ansible/hosts (defined in /etc/ansible/ansible.cfg)
+
+[webservers]
+webserver1
+webserver2
+
+[databases]
+db1
+db2
+
+[servers:children]
+webservers
+databases
+
+ansible -i INVENTORY_FILE 
+
+* Modules
+
+* Variables
+
+* Facts
+
+* Loops
+
+* Conditional tasks
+
+* Plays
+
+* Handling task failure
+
+* Playbooks
+
+* Configuration files
+
+In order of precedence: (also listed in default cfg file)
+
+ANSIBLE_CONFIG environment variable
+
+./ansible.cfg
+
+/etc/ansible/ansible.cfg (default file)
+
+ansible-config list
+
+ansible-config dump
+
+ansible-config view
+
+* Roles
+
+* Use provided documentation to look up specific information about Ansible modules and commands
+
+# Install and configure an Ansible control node
+
+* Install required packages
+
+subscription-manager repos --list | grep ansible
+
+subscription-manager repos --enable OUTPUT
+
+yum install -y ansible
+
+* Create a static host inventory
+
+Default file is in /etc/ansible/hosts
+
+* Create a configuration file
+
+Default file is in /etc/ansible/ansible.cfg
+
+* Create and use static inventories to define groups of hosts
+
+# Configure Ansible managed nodes
+
+* Create and distribute SSH keys to managed nodes
+
+ssh-keygen
+
+ssh-copy-id wyatt@host1.example.com
+
+* Configure privilege escalation on managed nodes
+
+/etc/sudoers.d/ansible
+
+ansible ALL=(ALL) NOPASSWD: ALL
+
+* Deploy files to managed nodes
+
+* Be able to analyze simple shell scripts and convert them to playbooks
+
 # Automate standard RHCSA tasks using Ansible modules that work with:
 
 * Software packages and repositories
@@ -33,11 +127,130 @@
 
 * Firewall rules
 
+**Rule for port**
+
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: allow https
+      firewalld:
+        port:443/tcp
+	permanent: yes
+	immediate: yes
+	state: enabled
+```
+
+**Rule for service**
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: allow https
+      firewalld:
+        zone: public
+	service: http
+	permanent: yes
+	immediate: yes
+	state: enabled
+```
+
+**Rich Rule for port forwarding**
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: forward 443 to 8443
+      firewalld:
+        rich_rule: rule family=ipv4 forward-port port=443 protocol=tcp to-port=8443
+	permanent: yes
+	immediate: yes
+	state: enabled
+```
+
 * File systems
 
 * Storage devices
 
 * File content
+
+**Create a file**
+
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: create /home/wyatt/file.txt
+      file:
+        path: /home/wyatt/file.txt
+	state: touch
+```
+
+**Add a line to a file**
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: add line to file
+      lineinfile:
+        path: /tmp/file1
+	line: This line was added by ansible
+	create: yes
+```
+
+**Create a file with copy**
+```
+---
+- hosts: www.example.com
+  tasks: 
+    - name: create file content with copy
+      copy:
+        content: ### Added by ansible ###
+	dest: /tmp/ansible.text
+```
+
+**Create a file using a template**
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: create a file using a template
+      template:
+        src: /home/users/wyatt/templates/host_template.j2
+	dest: /var/www/html/index.html
+```
+
+**host_template.j2**
+```
+Welcome to {{ ansible_hostname }}
+```
+
+**Replace a line in a file**
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: replace a line in a file
+      replace:
+        path: /home/users/wyatt/lines.txt
+	regexp: ".*Wyatt$"
+	replace: "This line replaced by Ansible"
+```
+
+**Replace a line using lineinfile**
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: replace using lineinfile
+      lineinfile:
+        path: /home/users/wyatt/lines.txt
+	regexp: "^Wyatt.*$"
+	line: "Line that begins with Wyatt was removed"A
+```
 
 * Archiving
 
