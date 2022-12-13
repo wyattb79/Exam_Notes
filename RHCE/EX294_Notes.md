@@ -1,6 +1,6 @@
 # Understand core components of Ansible
 
-* Inventories
+## Inventories
 
 Default location: /etc/ansible/hosts (defined in /etc/ansible/ansible.cfg)
 
@@ -18,23 +18,23 @@ databases
 
 ansible -i INVENTORY_FILE 
 
-* Modules
+## Modules
 
-* Variables
+## Variables
 
-* Facts
+## Facts
 
-* Loops
+## Loops
 
-* Conditional tasks
+## Conditional tasks
 
-* Plays
+## Plays
 
-* Handling task failure
+## Handling task failure
 
-* Playbooks
+## Playbooks
 
-* Configuration files
+## Configuration files
 
 In order of precedence: (also listed in default cfg file)
 
@@ -50,13 +50,13 @@ ansible-config dump
 
 ansible-config view
 
-* Roles
+## Roles
 
-* Use provided documentation to look up specific information about Ansible modules and commands
+## Use provided documentation to look up specific information about Ansible modules and commands
 
 # Install and configure an Ansible control node
 
-* Install required packages
+## Install required packages
 
 subscription-manager repos --list | grep ansible
 
@@ -64,39 +64,39 @@ subscription-manager repos --enable OUTPUT
 
 yum install -y ansible
 
-* Create a static host inventory
+## Create a static host inventory
 
 Default file is in /etc/ansible/hosts
 
-* Create a configuration file
+## Create a configuration file
 
 Default file is in /etc/ansible/ansible.cfg
 
-* Create and use static inventories to define groups of hosts
+## Create and use static inventories to define groups of hosts
 
 # Configure Ansible managed nodes
 
-* Create and distribute SSH keys to managed nodes
+## Create and distribute SSH keys to managed nodes
 
 ssh-keygen
 
 ssh-copy-id wyatt@host1.example.com
 
-* Configure privilege escalation on managed nodes
+## Configure privilege escalation on managed nodes
 
 /etc/sudoers.d/ansible
 
 ansible ALL=(ALL) NOPASSWD: ALL
 
-* Deploy files to managed nodes
+## Deploy files to managed nodes
 
-* Be able to analyze simple shell scripts and convert them to playbooks
+## Be able to analyze simple shell scripts and convert them to playbooks
 
 # Automate standard RHCSA tasks using Ansible modules that work with:
 
-* Software packages and repositories
+## Software packages and repositories
 
-* Services
+## Services
 
 **Start and enable firewalld using service**
 
@@ -125,7 +125,7 @@ ansible ALL=(ALL) NOPASSWD: ALL
 	enabled: yes
 ```
 
-* Firewall rules
+## Firewall rules
 
 **Rule for port**
 
@@ -171,11 +171,11 @@ ansible ALL=(ALL) NOPASSWD: ALL
 	state: enabled
 ```
 
-* File systems
+## File systems
 
-* Storage devices
+## Storage devices
 
-* File content
+## File content
 
 **Create a file**
 
@@ -252,7 +252,7 @@ Welcome to {{ ansible_hostname }}
 	line: "Line that begins with Wyatt was removed"A
 ```
 
-* Archiving
+## Archiving
 
 **Directory archive**
 
@@ -311,11 +311,11 @@ Welcome to {{ ansible_hostname }}
 	remote_src: yes # remote_src says the file is located on the remote box
 ```
 
-* Task scheduling
+## Task scheduling
 
-* Security
+## Security
 
-* Users and groups
+## Users and groups
 
 **Create groups**
 
