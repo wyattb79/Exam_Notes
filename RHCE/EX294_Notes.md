@@ -80,9 +80,9 @@
     - name: archive /home/users/wyatt/files/file[1,2,4] but skip file3
       archive:
         path: /home/users/wyatt/files/file*
-	excluse_path: /home/users/wyatt/files/file3
-      format: gz
-      dest: /tmp/file124.tgz
+	exclude_path: /home/users/wyatt/files/file3
+        format: gz
+        dest: /tmp/file124.tgz
 ```
 
 **Unarchive**
