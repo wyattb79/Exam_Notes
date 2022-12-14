@@ -5,15 +5,21 @@
 Default location: /etc/ansible/hosts (defined in /etc/ansible/ansible.cfg)
 
 [webservers]
+
 webserver1
+
 webserver2
 
 [databases]
+
 db1
+
 db2
 
 [servers:children]
+
 webservers
+
 databases
 
 ansible -i INVENTORY_FILE 
