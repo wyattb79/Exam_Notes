@@ -98,6 +98,87 @@ ansible ALL=(ALL) NOPASSWD: ALL
 
 ## Be able to analyze simple shell scripts and convert them to playbooks
 
+# Create Ansible plays and playbooks
+
+## Know how to work with commonly used Ansible modules
+
+## Use variables to retrieve the results of running a command
+
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: create a file
+      file:
+        path: /home/users/wyatt/file1.txt
+	state: touch
+      register: touch_output
+
+    - name: show previous command output
+      debug:
+        msg: "Command output is {{ touch_output }}"
+```
+
+## Use conditionals to control play execution
+
+#### Handlers
+
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: update web configuration
+      replace:
+        path: /etc/httpd/conf/httpd.conf
+	regexp: '^ServerAdmin.*$'
+	replace: 'ServerAdmin wyatt@example.com'
+	backup: yes
+      notify: "restart httpd"
+  handlers:
+    - name: "restart web server"
+      service:
+        name: httpd
+	state: restarted
+      listen: "restart httpd"
+```
+
+#### When conditional
+
+```
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: setup webserver
+      copy:
+        src: /home/users/wyatt/www/index.html
+	dest: /var/www/html/index.html
+      when: ansible_hostname == "webserver.example.com"
+    
+```
+
+#### Looping over a list
+
+```
+--- 
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: add users
+      user:
+        name: "{{ item }}"
+	state: present
+	groups: wheel
+      loop:
+        - wyatt
+	- wyatt_dev
+ 
+```
+
+## Configure error handling
+
+## Create playbooks to configure systems to a specified state
+
 # Automate standard RHCSA tasks using Ansible modules that work with:
 
 ## Software packages and repositories
