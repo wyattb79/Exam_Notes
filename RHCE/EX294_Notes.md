@@ -463,6 +463,43 @@ Welcome to {{ ansible_hostname }}
 
 ## Task scheduling
 
+#### Cron
+
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: perform daily yum update
+      cron:
+        name: "daily yum update"
+	minute: "*"
+	hour: "3"
+	month: "*"
+	weekday: "*"
+	user: root
+	state: present
+	job: "yum update -y"
+```
+
+#### At
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name install at
+      yum:
+        name: at
+	state: present
+    - name: run yum update in 2 hours
+      at:
+        command: "yum update -y"
+	count: 2
+	units: hours
+	state: present
+```
+
 ## Security
 
 ## Users and groups
