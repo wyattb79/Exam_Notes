@@ -102,6 +102,34 @@ ansible ALL=(ALL) NOPASSWD: ALL
 
 ## Software packages and repositories
 
+#### Install packages
+
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: install a package
+      yum:
+        name:
+	  - at
+	  - httpd
+	state: latest
+```
+
+#### Add a repo
+```
+---
+- hosts: www.example.com
+  become: yes
+  tasks:
+    - name: configure EPEL
+      yum_repository:
+        name: epel
+	descripion: Extra packages for Enterprise Linux
+	baseurl: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+	```
+
 ## Services
 
 **Start and enable firewalld using service**
