@@ -177,6 +177,41 @@ ansible ALL=(ALL) NOPASSWD: ALL
 
 ## Configure error handling
 
+#### Ignore errors
+
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: pull initial index.html, ignoring errors
+      fetch:
+        src: /downloads/www.index.html
+	dest: /var/www/html/index.html
+      ignore_errors: yes
+```
+
+#### Block and rescue
+
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: pull initial index.html, handle failure
+      block:
+        - fetch:
+          src: /downloads/www/index.html
+	  dest: /var/www/html/index.html
+      rescue:
+        - copy:
+	    content: Webserver down for maintenance.  Check back later.
+	    dest: /var/www/html/indx.html
+      always:
+        - service:
+	    name: httpd
+	    state: restarted
+
+```
+
 ## Create playbooks to configure systems to a specified state
 
 # Automate standard RHCSA tasks using Ansible modules that work with:
