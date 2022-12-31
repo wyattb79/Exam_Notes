@@ -653,6 +653,45 @@ Welcome to {{ ansible_hostname }}
 
 ## Security
 
+**SELinux**
+
+Package policycoreutils-python-utils need to be present to use SELinux
+
+**Enable SELinux**
+
+```
+- name: ensure SELinux is enabled and enforcing
+  selinux:
+    policy: targeted
+    state: enforcing
+```
+**Set context on policy**
+
+```
+- name: set context on new documentroot
+  sefcontext:
+    target: '/web(/.*)?'
+    setype: httpd_sys_content_t
+    state: present
+```
+
+**Restorecon**
+
+```
+- name: run restorecon
+  command: restorecon -Rv /web
+```
+
+**SEBoolean**
+
+```
+- name: allow the web server to run user content
+  seboolean:
+    name: httpd_read_user_content
+    state: yes
+    persistent: yes
+```
+
 ## Users and groups
 
 **Create groups**
