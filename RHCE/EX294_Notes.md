@@ -106,6 +106,15 @@ ansible-config view
 
 ## Roles
 
+**Use a role**
+
+```
+---
+- name: ...
+  roles:
+    - role: my_role
+```
+
 ## Use provided documentation to look up specific information about Ansible modules and commands
 
 # Install and configure an Ansible control node
