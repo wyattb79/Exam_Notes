@@ -472,6 +472,28 @@ alternatives --set python /usr/bin/python3
 	create: yes
 ```
 
+**Add block to file**
+```
+---
+- hosts: www.example.com
+  tasks:
+    - name: add block to file
+      blockinfile:
+        path: /tmp/index.html
+	block: |
+	  Welcome to the webserver
+	  This page under construction
+	state: present    
+```
+
+**Checksum file**
+---
+- hosts: www.example.com
+  tasks:
+  - name: hash file
+    path: /tmp/index.html
+    checksum_algorithm: md5
+
 **Create a file with copy**
 ```
 ---
