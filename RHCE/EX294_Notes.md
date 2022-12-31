@@ -42,8 +42,10 @@ Available in ansible_facts.ansible_local
 **Example Custom Fact File**
 
 [my_custom_facts]
+
 package = httpd
 state = present
+
 
 ```
 ---
