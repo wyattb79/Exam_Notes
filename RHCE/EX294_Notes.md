@@ -66,6 +66,22 @@ state = present
 
 ## Conditional tasks
 
+```
+---
+- name: restart sshd if httpd is running
+  hosts: www.example.com
+  tasks:
+  - name: get httpd status
+    command: systemctl is-active httpd
+    ignore_errors: yes
+    register httpd_status
+  - name: restart sshd
+    service:
+      name: sshd
+      state: restarted
+    when: httpd_status.rc == 0
+```
+
 ## Plays
 
 ## Handling task failure
