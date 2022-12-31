@@ -325,6 +325,73 @@ ansible ALL=(ALL) NOPASSWD: ALL
 
 ## Storage devices
 
+** Setup partitions **
+```
+---
+- name: setup partitions
+  hosts: www.example.com
+  tasks:
+  - name: create 1 GiB partition on /dev/sdb1
+    parted:
+      device: /dev/sdb
+      state: present
+      number: 1
+      part_start: 1MiB
+      part_end: 1GiB
+```
+
+** Setup volume group **
+```
+---
+- name: setup logical volume group
+  hosts: www.example.com
+  tasks:
+  - name: create volume group from PVs
+    lvg:
+      vg: /dev/sdb1
+      name: vgstorage
+```
+
+** Setup logical volume on volume group **
+```
+---
+- name: setup logical volume if needed
+  hosts: www.example.com
+  tasks:
+  - name: create logical volume on volume group
+    lvol:
+      vg: vgstorage
+      lv: lvlogs
+      size: 512M
+    when: lvlogs not in ansible_lvm["lvs"]
+```
+
+** Setup filesystem on logical volume **
+```
+---
+- name: setup filesystem
+  hosts: www.example.com
+  tasks:
+  - name: create filesystem on logical volume
+    filesystem:
+      dev: "/dev/vgstorage/lvlogs"
+      fstype: xfs
+```
+
+** Mount LVs **
+```
+---
+- name: mount logical volume
+  hosts: www.example.com
+  tasks:
+  - name: mount volume
+    mount:
+      path: /var/log
+      source: "/dev/vgstorage/lvlogs"
+      fstype: xfs
+      state: mounted
+```
+
 ## File content
 
 **Create a file**
