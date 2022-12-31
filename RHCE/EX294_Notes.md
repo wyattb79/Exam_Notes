@@ -55,8 +55,8 @@ state = present
   tasks:
   - name: install packages from custom facts
     yum:
-      name: "{{ ansible_facts.ansible_local.FILENAME.my_custom_facts.package }}"
-      state: "{{ ansible_facts.ansible_local.FILENAME.my_custom_facts.state }}"
+      name: "{{ ansible_local.FILENAME.my_custom_facts.package }}"
+      state: "{{ ansible_local.FILENAME.my_custom_facts.state }}"
 ```
 
 
