@@ -325,7 +325,7 @@ ansible ALL=(ALL) NOPASSWD: ALL
 
 ## Storage devices
 
-** Setup partitions **
+**Setup partitions**
 ```
 ---
 - name: setup partitions
@@ -340,7 +340,7 @@ ansible ALL=(ALL) NOPASSWD: ALL
       part_end: 1GiB
 ```
 
-** Setup volume group **
+**Setup volume group**
 ```
 ---
 - name: setup logical volume group
@@ -352,7 +352,7 @@ ansible ALL=(ALL) NOPASSWD: ALL
       name: vgstorage
 ```
 
-** Setup logical volume on volume group **
+**Setup logical volume on volume group**
 ```
 ---
 - name: setup logical volume if needed
@@ -366,7 +366,7 @@ ansible ALL=(ALL) NOPASSWD: ALL
     when: lvlogs not in ansible_lvm["lvs"]
 ```
 
-** Setup filesystem on logical volume **
+**Setup filesystem on logical volume**
 ```
 ---
 - name: setup filesystem
