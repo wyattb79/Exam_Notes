@@ -66,7 +66,7 @@ ansible-config view
 
 subscription-manager repos --list | grep ansible
 
-subscription-manager repos --enable OUTPUT
+subscription-manager repos --enable=OUTPUT
 
 yum install -y ansible
 
