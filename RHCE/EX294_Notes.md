@@ -323,6 +323,18 @@ ansible ALL=(ALL) NOPASSWD: ALL
 
 ## File systems
 
+**Setup filesystem on logical volume**
+```
+---
+- name: setup filesystem
+  hosts: www.example.com
+  tasks:
+  - name: create filesystem on logical volume
+    filesystem:
+      dev: "/dev/vgstorage/lvlogs"
+      fstype: xfs
+```
+
 ## Storage devices
 
 **Setup partitions**
@@ -365,20 +377,7 @@ ansible ALL=(ALL) NOPASSWD: ALL
       size: 512M
     when: lvlogs not in ansible_lvm["lvs"]
 ```
-
-**Setup filesystem on logical volume**
-```
----
-- name: setup filesystem
-  hosts: www.example.com
-  tasks:
-  - name: create filesystem on logical volume
-    filesystem:
-      dev: "/dev/vgstorage/lvlogs"
-      fstype: xfs
-```
-
-** Mount LVs **
+**Mount LVs**
 ```
 ---
 - name: mount logical volume
