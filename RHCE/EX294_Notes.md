@@ -33,6 +33,33 @@ No curly braces are used in a conditional statement in a playbook or in a templa
 
 ## Facts
 
+**Custom Facts**
+
+Defined in /etc/ansible/facts.d/FILENAME.fact
+
+Available in ansible_facts.ansible_local
+
+**Example Custom Fact File**
+
+[my_custom_facts]
+package = httpd
+state = present
+
+```
+---
+- name: install from custom fact file
+  hosts: www.example.com
+  become: yes
+  tasks:
+  - name: install packages from custom facts
+    yum:
+      name: "{{ ansible_facts.ansible_local.FILENAME.my_custom_facts.package }}"
+      state: "{{ ansible_facts.ansible_local.FILENAME.my_custom_facts.state }}"
+```
+
+
+
+
 ## Loops
 
 ## Conditional tasks
