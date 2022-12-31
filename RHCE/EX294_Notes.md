@@ -112,7 +112,7 @@ ansible-config view
 ---
 - name: ...
   roles:
-    - role: my_role
+    - my_role
 ```
 
 ## Use provided documentation to look up specific information about Ansible modules and commands
