@@ -743,6 +743,26 @@ Package policycoreutils-python-utils need to be present to use SELinux
 
 ## Create and use templates to create customized configuration files
 
+**Template Example**
+
+```
+hosts.j2:
+
+{% for host in groups['db_servers'] %}
+  {{ hostvars[host]['ansible_default_ipv4']['address'] }} {{ hostvars[host]['ansible_fqdn'] }} {{hostvars[host]['ansible_hostname'] }}
+{% endfor %}
+
+playbook template:
+
+- name: install hosts file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644
+```
+
 ## Use Ansible Vault in playbooks to protect sensitive data
 
 **Create an encrypted file**
