@@ -96,6 +96,10 @@ ansible ALL=(ALL) NOPASSWD: ALL
 
 ## Deploy files to managed nodes
 
+yum install python3
+
+alternatives --set python /usr/bin/python3
+
 ## Be able to analyze simple shell scripts and convert them to playbooks
 
 # Create Ansible plays and playbooks
