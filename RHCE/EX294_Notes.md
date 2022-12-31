@@ -743,7 +743,7 @@ Package policycoreutils-python-utils need to be present to use SELinux
 
 ## Create and use templates to create customized configuration files
 
-**Template Example**
+**Jinja2 Template Example**
 
 ```
 hosts.j2:
@@ -762,6 +762,23 @@ playbook template:
     group: root
     mode: 0644
 ```
+
+**Template control structures**
+
+```
+{% if ... %}
+...
+{% else %}
+...
+{% endif %}
+
+{% for host in groups['webservers'] %}
+...
+{% endfor %}
+
+```
+
+
 
 ## Use Ansible Vault in playbooks to protect sensitive data
 
