@@ -28,6 +28,9 @@ ansible -i INVENTORY_FILE
 
 ## Variables
 
+No curly braces are used in a conditional statement in a playbook or in a template
+
+
 ## Facts
 
 ## Loops
