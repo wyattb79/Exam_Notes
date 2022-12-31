@@ -624,3 +624,69 @@ Welcome to {{ ansible_hostname }}
 	state: absent
 	remove: yes  # get rid of all directories associated with this user
 ```
+
+# Manage content
+
+## Create and use templates to create customized configuration files
+
+## Use Ansible Vault in playbooks to protect sensitive data
+
+**Create an encrypted file**
+
+```
+ansible-vault create playbook.yml
+```
+
+**Create encrypted file with vault password file**
+
+```
+ansible-vault create --vault-password-file=vault-pass playbook.yaml
+```
+
+**View encrypted file**
+
+```
+ansible-vault view playbook.yaml
+```
+
+**Edit encrypted file**
+
+```
+ansible-vault edit playbook.yaml
+```
+
+**Encrypt existing file**
+
+```
+ansible-vault encrypt playbook.yaml
+```
+
+**Decrypt existing file**
+
+```
+ansible-vault decrypt playbook.yaml
+```
+
+**Change password of file**
+
+```
+ansible-vault rekey
+```
+
+**Run playbook that accesses vault encrypted files**
+
+```
+--vault-id @prompt
+```
+
+**Run with a vault password file**
+
+```
+ansible-playbook --vault-password-file=vault-pass playbook.yaml
+```
+
+**Run with a vault password**
+
+```
+ansible-playbook --ask-vault-pass playbook.yaml
+```
