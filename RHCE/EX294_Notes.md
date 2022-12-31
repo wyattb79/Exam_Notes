@@ -70,6 +70,9 @@ subscription-manager repos --enable=OUTPUT
 
 yum install -y ansible
 
+To add python to a managed node remotely using Ansible:
+ansible -u root -i inventory HOST --ask-pass -m raw -a 'yum install python3 -y'
+
 ## Create a static host inventory
 
 Default file is in /etc/ansible/hosts
