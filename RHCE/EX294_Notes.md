@@ -487,12 +487,20 @@ alternatives --set python /usr/bin/python3
 ```
 
 **Checksum file**
+
+```
 ---
 - hosts: www.example.com
   tasks:
   - name: hash file
-    path: /tmp/index.html
-    checksum_algorithm: md5
+    stat:
+      path: /tmp/index.html
+      checksum_algorithm: md5
+    register: result
+  - name: show checksum
+    debug:
+      msg: Checksum is {{ result.stat.checksum }}
+```
 
 **Create a file with copy**
 ```
