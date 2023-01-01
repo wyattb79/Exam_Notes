@@ -121,6 +121,18 @@ ansible-config view
 ansible-galaxy init my_custom_role
 ```
 
+**RHEL System Roles**
+
+Install:
+```
+yum install rhel-system-roles
+```
+
+Docs:
+```
+/usr/share/doc/rhel-system-roles
+```
+
 ## Use provided documentation to look up specific information about Ansible modules and commands
 
 # Use roles and Ansible Content Collections
