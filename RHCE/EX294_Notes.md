@@ -115,6 +115,12 @@ ansible-config view
     - my_role
 ```
 
+**Create a custom role**
+
+```
+ansible-galaxy init my_custom_role
+```
+
 ## Use provided documentation to look up specific information about Ansible modules and commands
 
 # Install and configure an Ansible control node
