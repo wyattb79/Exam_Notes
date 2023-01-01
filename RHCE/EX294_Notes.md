@@ -123,6 +123,26 @@ ansible-galaxy init my_custom_role
 
 ## Use provided documentation to look up specific information about Ansible modules and commands
 
+# Use roles and Ansible Content Collections
+
+## Create and work with roles
+
+## Install roles and use them in playbooks
+
+## Install Content Collections and use them in playbooks
+
+```
+---
+- name: play name
+  collections:
+    - ansible.posix
+  tasks:
+  - name: ...
+    selinux: 
+```
+
+## Obtain a set of related roles, supplementary modules, and other content from content collections, and use them in a playbook.
+
 # Install and configure an Ansible control node
 
 ## Install required packages
