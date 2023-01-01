@@ -132,6 +132,8 @@ ansible-galaxy init my_custom_role
 ## Install Content Collections and use them in playbooks
 
 ```
+ansible-galxy collection install ansible.posix
+
 ---
 - name: play name
   collections:
@@ -142,6 +144,18 @@ ansible-galaxy init my_custom_role
 ```
 
 ## Obtain a set of related roles, supplementary modules, and other content from content collections, and use them in a playbook.
+
+ansible-galaxy collection install -r requirements.yaml
+
+```
+requirements.yaml:
+
+collections:
+  - ansible.netcommon
+    source: https://galaxy.ansible.com
+  - ansible.posix
+    source: https://galaxy.ansible.com
+```
 
 # Install and configure an Ansible control node
 
