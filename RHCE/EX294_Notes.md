@@ -799,6 +799,16 @@ Package policycoreutils-python-utils need to be present to use SELinux
 	state: absent
 	remove: yes  # get rid of all directories associated with this user
 ```
+**Add authorized key**
+```
+---
+- hosts: www.example.com
+  tasks:
+  - name: add authrozed key
+    authorized_key:
+      user: {{ item.name }}
+      key: "{{ lookup('file', 'keys/' + item.name + '/id_rsa.pub') }}" 
+```
 
 # Manage content
 
