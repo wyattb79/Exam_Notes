@@ -810,6 +810,18 @@ Package policycoreutils-python-utils need to be present to use SELinux
       key: "{{ lookup('file', 'keys/' + item.name + '/id_rsa.pub') }}" 
 ```
 
+**Set default multiuser state**
+```
+---
+- hosts: www.example.com
+  tasks:
+  - name: set default boot target
+    file:
+      src: /usr/lib/systemd/system/multi-user.target
+      dest: /etc/systemd/system/default.target
+      state: link
+```
+
 # Manage content
 
 ## Create and use templates to create customized configuration files
