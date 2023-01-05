@@ -54,6 +54,34 @@
 
 ## Interpret SELinux violations and determine remedial action
 
+SELinux logs to /var/log/audit/audit.log
+
+**Analyze audit log**
+
+```
+sealert -a /var/log/audit/audit.log
+```
+
+**Setup SELinux for a new application**
+
+```
+setenforce permissive
+```
+
+Run application
+
+```
+sealert -a /var/log/audit/audit.log
+
+grep httpd /var/log/audit/audit.log | audit2allow -M se_policy
+
+semodule -i se_policy.pp
+
+setenforce enforcing
+```
+
+Journalctl -xe can also give clues
+
 ## Restrict user activity with SELinux user mappings
 
 ## Analyze and correct existing SELinux configurations
