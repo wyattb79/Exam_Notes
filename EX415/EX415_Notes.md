@@ -58,6 +58,24 @@
 
 ## Analyze and correct existing SELinux configurations
 
+**List booleans**
+
+```
+getsebool -a
+```
+
+**List booleans (including description):**
+
+```
+semanage boolean -l 
+```
+
+**Set boolean persistently**
+
+```
+setsebool -P BOOLEAN on
+```
+
 # Enforce security compliance
 
 ## Install OpenSCAP and Workbench
