@@ -84,6 +84,61 @@ Journalctl -xe can also give clues
 
 ## Restrict user activity with SELinux user mappings
 
+**View user mappings**
+
+```
+semanage login -l
+```
+
+**Identify user's mapping**
+
+```
+id -Z
+```
+
+**Map linux user to SELinux user**
+
+```
+semanage login -a -s SEUser User
+```
+
+**Delete user to SELinux mapping**
+
+```
+semanage -d User
+```
+
+**Change user mapping**
+
+```
+semanage login -m -S targeted -s "SELINUX_USER" -r MLC/MCS LOGIN
+```
+
+**sudo limitations*
+
+Only roles sysadm_r and staff_r can use sudo when a user is not unconfined_r
+
+**Allow user to sudo by changing user mapping**
+
+```
+semanage login -a -s "staff_r" wyatt
+```
+
+Add to /etc/sudoers:
+
+wyatt ALL=(ALL) TYPE=administrator_t
+ROLE=administrator_r /bin/sh
+
+Update home directory SEContext:
+
+restorecon -FR -v /home/wyatt
+
+**Allow SEuser to sudo by changing SE mapping**
+
+```
+semanage login -m -R "staff_r" SEUSER
+```
+
 ## Analyze and correct existing SELinux configurations
 
 **List booleans**
