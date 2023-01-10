@@ -55,6 +55,13 @@ Show usbguard activity
 ```
 usbguard watch
 ```
+To create rules:
+
+Edit a temporary rules.conf file
+
+install -m 0600 -o root -g root rules.conf /etc/usbguard/rules.conf
+
+systemctl restart usbguard.service
 
 ## Manage administrative policy and daemon configuration
 
@@ -62,7 +69,9 @@ USBGuard config file is located at: /etc/usbguard/usbguard-daemon.conf
 
 For devices that match no defined rules, ImplicitPolicyTarget=allow|block|reject
 
-Settings can be modified via IPC by the IPCAllowedUsers
+Settings can be modified via IPC by the IPCAllowedUsers or IPCAllowedGroups
+
+Devices attached when daemon starts: PresentDevicePolicy
 
 # Manage system login security using pluggable authentication modules (PAMs) 
 
