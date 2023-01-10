@@ -79,6 +79,57 @@ Devices attached when daemon starts: PresentDevicePolicy
 
 ## Configure failed login policy
 
+Edit /etc/pam.d/password-auth:
+
+```
+auth required pam_faillock.so preauth silent audit deny=5 unlock_time=300
+
+auth [default=die] pam_faillock.so authfail audit deny=5 unlock_time=300
+
+account require pam_faillock.so
+```
+
+
+Edit /etc/pam.d/system-auth:
+
+```
+auth required pam_faillock.so preauth silent audit deny=5 unlock_time=300
+
+auth [default=die] pam_faillock.so authfail audit deny=5 unlock_time=300
+
+account require pam_faillock.so
+```
+
+To lock root out, add to the auth lines:
+
+```
+even_deny_root
+```
+
+To exempt users from lockout, precede first faillock with:
+
+```
+auth [success=1 default=ignore] pam_succeed_if.so user in user1:user2:user3
+```
+
+View failed logins:
+
+```
+faillock
+```
+
+Failed login attempted logged at:
+
+```
+/var/run/faillock
+```
+
+Unlock locked user:
+
+```
+faillock --user USER --reset
+```
+
 ## Modify PAM configuration files and parameters
 
 # Configure system auditing
