@@ -27,10 +27,42 @@
 # Restrict USB devices 
 
 ## Install USBGuard
-
+```
+yum install usbguard -y
+usbguard generate-policy /etc/usbguard/rules.conf
+systemctl start usbguard.service
+systemctl enabled usbguard.service
+```
 ## Write device policy rules with specific criteria to manage devices
 
+Show devices
+
+```
+usbguard list-devices
+```
+
+Allow devices 'n' (example 2)
+```
+usbguard allow-device 2
+```
+
+Block devices 'n' (example 1)
+```
+usbguard block-device 1
+```
+
+Show usbguard activity
+```
+usbguard watch
+```
+
 ## Manage administrative policy and daemon configuration
+
+USBGuard config file is located at: /etc/usbguard/usbguard-daemon.conf
+
+For devices that match no defined rules, ImplicitPolicyTarget=allow|block|reject
+
+Settings can be modified via IPC by the IPCAllowedUsers
 
 # Manage system login security using pluggable authentication modules (PAMs) 
 
