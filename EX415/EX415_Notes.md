@@ -77,6 +77,20 @@ Devices attached when daemon starts: PresentDevicePolicy
 
 ## Configure password quality requirements
 
+Password quality file: /etc/security/pwquality.conf
+
+To use, edit etc/pam.d/passwd:
+
+```
+password required pam_pwquality.so retry=5
+```
+
+To create a password history, add after pam_pwquality.so to /etc/pam.d/system-auth and /etc/pam.d/password-auth:
+
+```
+password requisite pam_pwhistory.so remember=5 use_authtok
+```
+
 ## Configure failed login policy
 
 Edit /etc/pam.d/password-auth:
