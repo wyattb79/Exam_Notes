@@ -289,6 +289,12 @@ Make human readable report:
 oscap oval generate report my-results.xml > my_report.html
 ```
 
+Install and register Insights
+```
+yum install insights-client
+insights-client --register
+```
+
 ## Use OpenSCAP Workbench to tailor policy
 
 ## Use OpenSCAP Workbench to scan an individual host for security compliance
