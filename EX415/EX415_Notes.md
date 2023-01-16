@@ -269,7 +269,25 @@ setsebool -P BOOLEAN on
 
 ## Install OpenSCAP and Workbench
 
+```
+yum install scap-workbench -y
+yum install openscap-scanner -y
+yum install scap-security-guide -y
+```
+
 ## Use OpenSCAP and Red Hat Insights to scan hosts for security compliance
+
+Run scan using ssh-rhel7-ds.xml profile saving as my-results.xml
+
+```
+oscap oval eval --result my-results.xml /usr/share/scap/xml/ssg/content/ssg-rhel7-ds.xml
+```
+
+Make human readable report:
+
+```
+oscap oval generate report my-results.xml > my_report.html
+```
 
 ## Use OpenSCAP Workbench to tailor policy
 
@@ -278,3 +296,17 @@ setsebool -P BOOLEAN on
 ## Use Red Hat Satellite server to implement an OpenSCAP policy
 
 ## Apply OpenSCAP remediation scripts to hosts
+
+Online remediation:
+
+```
+oscap xccdf eval --remediate --profile xccdf_org.ssgproject.content_profile_rht-ccp --results my-results.xml /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+```
+
+Offline remediation:
+
+```
+oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_rht-ccp --results my-results.xml /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+oscap xccdf remediate --results my-results.xml my-xccdf-results.xml
+
+```
