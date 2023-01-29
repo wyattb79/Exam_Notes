@@ -215,7 +215,25 @@ Syscall rules:
 
 ## Enable prepackaged rules
 
+
+```
+cp /usr/share/doc/$VERSION/audit.rules /usr/share/doc/$VERSION/audit.rules.save
+cp /usr/share/doc/$VERSION/30-nispom.rules /usr/share/doc/$VERSION/audit.rules
+```
+
+Note: the pre-configured rule file may list in its header that it depends on other rule files.  In that case, concatenate all of the into the audit.rules file
+
 ## Produce audit reports
+
+aureport queries files in /var/log/audit
+
+```
+aureport --start 01/01/2000 00:00:00 --end 1/2/2000 00:00:00
+
+aureport --login --summary -i
+
+ausearch --start today --loginuid 1001 --raw | aureport -f summary
+```
 
 # Configure SELinux
 
