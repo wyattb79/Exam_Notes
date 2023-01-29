@@ -14,7 +14,23 @@
 
 ## Install AIDE
 
+```
+yum install aide
+```
+
 ## Configure AIDE to monitor critical system files.
+
+Setup initial database
+
+```
+/usr/sbin/aide --init
+cp /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+```
+
+Check for changes
+```
+/usr/sbin/aide --check
+```
 
 # Configure encrypted storage 
 
