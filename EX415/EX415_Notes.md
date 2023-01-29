@@ -32,6 +32,12 @@ Check for changes
 /usr/sbin/aide --check
 ```
 
+Add changes to new baseline
+```
+/usr/sbin/aide --update
+cp /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+```
+
 # Configure encrypted storage 
 
 ## Encrypt and decrypt block devices using LUKS.
