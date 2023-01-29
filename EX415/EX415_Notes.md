@@ -170,6 +170,31 @@ faillock --user USER --reset
 
 # Configure system auditing
 
+Install audit
+
+```
+yum install -y audit
+```
+
+/etc/audit/auditd.conf:
+
+```
+log_file: where to store audit entries
+max_log_file: maximum log file size in MB
+num_logs: number of logs to keep
+max_log_file_action: rotate/keep
+space_left: free space on volume to trigger space_left_action
+space_left_action: action to take when space_left reaches its level.  ex: email
+action_mail_acct: email account to notify
+```
+
+Manage auditd:
+```
+service auditd start
+systemctl enable auditd
+service auditd rotate
+```
+
 ## Write rules to log auditable events
 
 ## Enable prepackaged rules
