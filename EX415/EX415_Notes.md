@@ -197,6 +197,22 @@ service auditd rotate
 
 ## Write rules to log auditable events
 
+/etc/audit/audit.rules
+
+
+Filesystem rules:
+```
+-w file_path -p perms -k key
+
+perms: r read, w write, e execute, a change attribs
+```
+
+Syscall rules:
+
+```
+-a action,filter -S syscall, -F arch=b64 field=value -k key
+```
+
 ## Enable prepackaged rules
 
 ## Produce audit reports
