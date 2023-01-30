@@ -42,6 +42,87 @@ cp /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
 
 ## Encrypt and decrypt block devices using LUKS.
 
+Identify available space on VG:
+
+```
+vgdisplay
+```
+
+Create a volume:
+
+```
+lvcreate -L 50M -n my_logical_volume volgroup_name
+```
+
+Format volume with luks:
+
+```
+cryptsetup lukeFormat /dev/mapper/volgroup_name-my_logical_volume
+```
+
+Open volume:
+```
+cryptsetup luksOpen /dev/mapper/volgroup_name-my_logical_volume my_lv_name
+```
+
+Mount volume:
+
+```
+mount /dev/mapper/my_lv_name /mount_dir
+```
+
+Verify:
+
+```
+cryptsetup -v status my_lv_name
+```
+
+Mount at boot time:
+
+```
+/etc/crypttab
+my_lv_name /dev/mapper/volgroup_name-my_lv_name
+/etc/fstab
+/dev/mapper/volgroup_name-my_lv_name /data ext4 0 2
+```
+
+Unmount:
+```
+umount /data
+```
+
+Close volume:
+```
+cryptsetup luksClose my_lv_name
+```
+
+Rekey:
+
+```
+cryptsetup luksChangeKey /dev/mapper/volgroup_name-my_logical_volume
+```
+
+Add a key:
+```
+# find next location
+cryptsetup luksDump /dev/mapper/volgroup_name-my_logical_volume
+cryptsetup luksAddkey --key-slot 1 /dev/mapper/volgroup_name-my_logical_volume
+# verify
+cryptsetup luksDump /dev/mapper/volgroup_name-my_logical_volume
+```
+
+Backup header:
+```
+cryptsetup luksHeaderBackup /dev/mapper/volgroup_name-my_logical_volume --header-backup-file /data/backup
+```
+
+Restore header
+```
+cryptsetup luksHeaderRestore /dev/mapper/volgroup_name-my_logical_volume --header-backup-file /data/backup
+```
+
+
+
 ## Configure encrypted storage persistence using NBDE.
 
 ## Change encrypted storage passphrases.
