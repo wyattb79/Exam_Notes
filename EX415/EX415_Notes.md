@@ -57,7 +57,7 @@ lvcreate -L 50M -n my_logical_volume volgroup_name
 Format volume with luks:
 
 ```
-cryptsetup lukeFormat /dev/mapper/volgroup_name-my_logical_volume
+cryptsetup luksFormat /dev/mapper/volgroup_name-my_logical_volume
 ```
 
 Open volume:
@@ -125,7 +125,60 @@ cryptsetup luksHeaderRestore /dev/mapper/volgroup_name-my_logical_volume --heade
 
 ## Configure encrypted storage persistence using NBDE.
 
+Setup server:
+
+```
+yum install tang -y
+systemctl enable tangd.socket --now
+ls /var/db/tang
+```
+
+Setup client:
+
+```
+yum install clevis clevis-luks clevis-dracut -y
+clevis bind luks -d /dev/xvdg/ tang '{"url":"http://x.x.x.x"}'
+luksmeta show -d /dev/xvdg
+```
+
+Enable dracut to open LUKS volumes at boot:
+
+```
+dracut -f
+```
+
+Enable clevis-luks-askpass-path:
+
+```
+systemctl enable clevis-luks-askpass.path
+```
+
+Edit /etc/crypttab for partitions:
+```
+secret /dev/xvdg none
+```
+
+Edit /etc/fstab for partitions:
+```
+/dev/xvdg /SECRET ext4 1 2
+```
+
+Edit /etc/crypttab for volumes:
+```
+secret /dev/mapper/luks_vg-vol_lv none _netdev
+```
+
+Edit /etc/fstab for volumes:
+```
+/dev/mapper/luks_vg-vol_lv /SECRET ext4 _netdev 1 2
+```
 ## Change encrypted storage passphrases.
+
+Rotate NBDE keys:
+```
+jose jwk gen -i '{"alg":"ES512"}' -o /var/db/tang/new_sig2.jwk
+jose jwk gen -i '{"alg":"ECMR"}' -o /var/db/tang/new_exc2.jwk
+```
 
 # Restrict USB devices 
 
