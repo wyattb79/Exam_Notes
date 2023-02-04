@@ -373,6 +373,13 @@ ausearch --start today --loginuid 1001 --raw | aureport -f summary
 
 ## Enable SELinux on a host running a simple application
 
+Edit /etc/sysconfig/selinux:
+
+```
+SELINUX=permissive
+```
+touch /.autorelabel and reboot to label everything
+
 ## Interpret SELinux violations and determine remedial action
 
 SELinux logs to /var/log/audit/audit.log
