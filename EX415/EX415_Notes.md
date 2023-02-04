@@ -487,6 +487,18 @@ semanage boolean -l
 setsebool -P BOOLEAN on
 ```
 
+Troubleshooting SELinux:
+```
+yum install setroubleshoot setroubleshoot-server -y
+service auditd restart
+```
+
+Use sealert:
+
+```
+sealert -a /var/log/audit/audit.log
+```
+
 # Enforce security compliance
 
 ## Install OpenSCAP and Workbench
