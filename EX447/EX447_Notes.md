@@ -20,6 +20,28 @@
 
 ## Control privilege execution
 
+Create ssh keys with passwords
+```
+ssh-keygen ...
+```
+
+Use ssh-agent after login to store passphrases
+```
+eval ssh-agent /bin/bash
+ssh-add ~/.ssh/id_rsa
+ssh-add -l
+```
+
+Or add it to ~/.bash_profile
+```
+if [ -z "$SSH_AUTH_SOCK" ]
+  eval `ssh-agent -s`
+  ssh-add
+fi
+```
+
+Remove NOPASSWD from /etc/sudoers and increase timestamp
+
 ## Run selected tasks
 
 # Transform data with filters and plugins
