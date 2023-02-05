@@ -58,6 +58,25 @@ Remove NOPASSWD from /etc/sudoers and increase timestamp
 
 ## Run a task for a managed host on a different host, then control whether facts gathered by that task are delegated to the managed host or the other host
 
+```
+- name: test web url
+  uri:
+    url: http://www2
+  delegate_to: www.example.com
+```
+
+Copy from www1 to control_node
+```
+...
+hosts: control_node
+tasks:
+- name: copy /tmp/hosts to /etc/hosts
+  copy:
+    src: /tmp/hosts
+    dest: /etc/hosts
+  delegate_to: www1
+```
+
 # Install Ansible Tower
 
 ## Perform basic configuration of Ansible Tower after configuration
