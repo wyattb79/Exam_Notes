@@ -382,6 +382,12 @@ touch /.autorelabel and reboot to label everything
 
 ## Interpret SELinux violations and determine remedial action
 
+See what was denied today:
+
+```
+ausearch -m AVC,USER_AVC,SELINUX_ERR -ts today
+```
+
 SELinux logs to /var/log/audit/audit.log
 
 **Analyze audit log**
