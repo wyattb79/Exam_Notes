@@ -42,6 +42,11 @@ fi
 
 Remove NOPASSWD from /etc/sudoers and increase timestamp
 
+```
+/etc/sudoers:
+Defaults timestamp_type=global,timestamp_timeout=120,!requiretty
+```
+
 ## Run selected tasks
 
 # Transform data with filters and plugins
