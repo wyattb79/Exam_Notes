@@ -61,6 +61,64 @@ assert:
   fail_msg: Task Failed
 ```
 
+Check a given value:
+```
+---
+- hosts: localhost
+  vars_prompt:
+  - name: age
+    prompt: "Enter your age"
+    private: no
+  tasks: 
+  - name: Check if age is over 21
+    assert:
+      that: 
+      - "{{  (age | int) <= 120 }}"
+      - "{{  (age | int) >= 21 }}"
+    fail_msg: "Age must be between 21 and 120"
+    success_msg: "Age fits criteria"
+```
+
+Fail if value has no value:
+```
+{{ my_var | mandatory }}
+```
+
+Set a default value for var2 if it is empty or has a boolean false value:
+```
+{{ my_var | default_value(var2, True) }}
+```
+
+Capitalize a string:
+```
+{{ my_var | capitalize }}
+```
+
+Create a single list from many lists:
+```
+union
+```
+
+Get a random element:
+```
+{{ [0, 1, 2] | random }}
+```
+
+Sort list:
+```
+{{ [1, 4, 2, 3] | sort }}
+```
+
+Generate password:
+```
+password_hash
+```
+
+Quote:
+```
+quote
+```
+
 ## Use lookup and query functions to template data from external sources into playbooks and deployed template files
 
 ## Implement loops using structures other than simple lists using lookup plugins and filters
