@@ -123,6 +123,89 @@ quote
 
 ## Implement loops using structures other than simple lists using lookup plugins and filters
 
+```
+vars:
+- logdir: "/var/log"
+tasks:
+  - name: show logfiles
+    find:
+      paths: "{{ logdir }}"
+      recurse: yes
+    register: logfiles
+  - name: show raw data
+    debug:
+      var: logfiles
+  - name: show files with map and list
+    set_fact:
+      logfilelist: "{{ logfiles['files'] | map(attribute='path') | list }}"
+  - name: show new data
+    debug:
+      var: logfilelist
+```
+
+Flatten: a flat list from a nested struture
+```
+vars:
+  usa:
+    - newyork:
+        cities:
+        - albany
+        - buffalo
+    - california
+        cities:
+          losangeles
+          sacramento
+tasks:
+- name: produce a flat list of cities
+  debug: 
+    msg: "{{ item }}"
+  loop: "{{ usa | map(attribute='cities') | flatten }}"
+```
+
+Subelements:
+
+```
+vars:
+  usa:
+    - state: newyork
+      cities:
+        - albany
+        - buffalo
+    - state: california
+      cities:
+        - losangeles
+        - sacramento
+tasks:
+  - name: show cities in each state
+    debug:
+      msg: >
+        In state "{{ item.0.state }}"
+        there is a city called "{{ item.1.* }}"
+    loop: "{{ usa | subelements('cities') }}"
+```
+
+dict2items:
+
+```
+vars:
+  users:
+    name: bob
+      shell: sh
+      groups: admins
+    name: jane
+      shell: bash
+      groups: developers
+tasks:
+  - name: add users
+    user:
+      name: "{{ item.key }}"
+      shell: "{{ item.value.shell }}"
+      groups: "{{ item.value.groups }}"
+    loop: "{{ users | dict2items }}"
+    
+
+```
+
 ## Inspect, validate, and manipulate variables containing networking information with filters
 
 Install required packages for network related filters:
