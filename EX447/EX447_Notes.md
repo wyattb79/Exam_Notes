@@ -125,6 +125,16 @@ quote
 
 ## Inspect, validate, and manipulate variables containing networking information with filters
 
+Install required packages for network related filters:
+
+```
+yum install python3-netaddr python3-dns -y
+```
+
+ipaddr filter examples:
+
+ip4_hex examples:
+
 # Delegate tasks
 
 ## Run a task for a managed host on a different host, then control whether facts gathered by that task are delegated to the managed host or the other host
