@@ -53,6 +53,14 @@ Defaults timestamp_type=global,timestamp_timeout=120,!requiretty
 
 ## Populate variables with data from external sources using lookup plugins
 
+Assert variable:
+```
+assert:
+  that: task_succeeded
+  success_msg: Task Success
+  fail_msg: Task Failed
+```
+
 ## Use lookup and query functions to template data from external sources into playbooks and deployed template files
 
 ## Implement loops using structures other than simple lists using lookup plugins and filters
