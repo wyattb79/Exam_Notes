@@ -539,6 +539,12 @@ insights-client --register
 
 ## Use OpenSCAP Workbench to scan an individual host for security compliance
 
+```
+oscap xccdf eval --report report.html --profile ospp /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+
+oscap-ssh scan_user@host1 22 xccdf eval --report report.html --profile ospp /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+```
+
 ## Use Red Hat Satellite server to implement an OpenSCAP policy
 
 ## Apply OpenSCAP remediation scripts to hosts
